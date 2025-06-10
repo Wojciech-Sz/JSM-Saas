@@ -55,7 +55,7 @@ interface CreateUser {
 }
 
 interface SearchParams {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 interface Avatar {

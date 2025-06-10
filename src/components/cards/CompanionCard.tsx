@@ -29,7 +29,7 @@ const CompanionCard = ({
       <h2 className="text-2xl font-bold">{name}</h2>
       <p className="text-sm">{topic}</p>
       <div className="flex items-center gap-2">
-        <Clock className="h-4 w-4" />
+        <Clock size={14} />
         <p className="text-sm">{duration} minutes</p>
       </div>
 
