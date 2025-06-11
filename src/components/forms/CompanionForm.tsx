@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -23,6 +26,10 @@ import { Input } from "@/components/ui/input";
 import { subjects } from "@/constants";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { createCompanion } from "@/lib/actions/companion.action";
+import { ROUTES } from "@/constants/routes";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 const formSchema = z.object({
   name: z.string().min(1, { message: "Companion is required" }),
   subject: z.string().min(1, { message: "Subject is required" }),
@@ -41,12 +48,20 @@ const CompanionForm = () => {
       topic: "",
       voice: "",
       style: "",
-      duration: 0,
+      duration: 15,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companion = await createCompanion(values);
+
+    if (companion) {
+      toast.success("Companion created successfully");
+      redirect(ROUTES.COMPANION_SESSION(companion.id));
+    } else {
+      toast.error("Failed to create companion");
+      redirect(ROUTES.HOME);
+    }
   };
   return (
     <Form {...form}>
