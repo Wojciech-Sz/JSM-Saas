@@ -26,6 +26,9 @@ export const env = createEnv({
     // Supabase
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+
+    // Vapi
+    NEXT_PUBLIC_VAPI_KEY: z.string(),
   },
 
   /**
@@ -48,6 +51,9 @@ export const env = createEnv({
     // Supabase
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+
+    // Vapi
+    NEXT_PUBLIC_VAPI_KEY: process.env.NEXT_PUBLIC_VAPI_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

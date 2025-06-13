@@ -39,7 +39,7 @@ const SearchInput = () => {
   }, [router, searchParams, pathname, searchQuery]);
 
   return (
-    <div className="relative flex h-full items-center gap-2 rounded-lg border border-black px-2 py-1">
+    <div className="relative flex h-9 items-center gap-2 rounded-lg border border-black px-2 py-1">
       <Search size={15} absoluteStrokeWidth />
       <input
         placeholder="Search companions..."
