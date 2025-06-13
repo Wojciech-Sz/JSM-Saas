@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import CompanionComponent from "@/components/cards/CompanionComponent";
 import { ROUTES } from "@/constants/routes";
 import { getCompanionById } from "@/lib/actions/companion.action";
 import { getSubjectColor } from "@/lib/utils";
@@ -54,6 +54,12 @@ const CompanionSessionPage = async ({ params }: CompanionSessionPageProps) => {
           {duration} minutes
         </div>
       </article>
+      <CompanionComponent
+        {...companion}
+        companionId={id}
+        userName={user.firstName}
+        userImage={user.imageUrl}
+      />
     </main>
   );
 };
