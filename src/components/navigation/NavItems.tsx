@@ -19,6 +19,10 @@ const navItems = [
     name: "My Journey",
     href: ROUTES.MY_JOURNEY,
   },
+  {
+    name: "Subscription",
+    href: ROUTES.SUBSCRIPTION,
+  },
 ];
 
 const NavItems = () => {

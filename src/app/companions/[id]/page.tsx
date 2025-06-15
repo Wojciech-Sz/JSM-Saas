@@ -22,7 +22,7 @@ const CompanionSessionPage = async ({ params }: CompanionSessionPageProps) => {
 
   const user = await currentUser();
 
-  if (!user) return redirect("/sign-in");
+  if (!user) return redirect(ROUTES.SIGN_IN);
 
   if (!companion) return redirect(ROUTES.COMPANIONS);
 

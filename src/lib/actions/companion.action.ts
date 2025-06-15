@@ -106,7 +106,13 @@ export const getSessionHistory = async (limit = 10) => {
   return data.map(({ companions }) => companions);
 };
 
-export const getUserSessionHistory = async (limit = 10, userId: string) => {
+export const getUserSessionHistory = async ({
+  limit = 10,
+  userId,
+}: {
+  limit?: number;
+  userId: string;
+}) => {
   const supabase = createSupabaseClient();
 
   const { data, error } = await supabase
@@ -121,4 +127,49 @@ export const getUserSessionHistory = async (limit = 10, userId: string) => {
   }
 
   return data.map(({ companions }) => companions);
+};
+
+export const getUserCompanions = async (userId: string) => {
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select()
+    .eq("author", userId);
+
+  if (error) {
+    throw new Error(error?.message || "Failed to get user companions");
+  }
+
+  return data;
+};
+
+export const newCompanionPermissions = async () => {
+  const { userId, has } = await auth();
+  const supabase = createSupabaseClient();
+
+  let limit = 0;
+
+  if (has({ plan: "pro" })) {
+    return true;
+  } else if (has({ feature: "3_active_companions" })) {
+    limit = 3;
+  } else if (has({ feature: "10_active_companions" })) {
+    limit = 10;
+  }
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select("id", { count: "exact" })
+    .eq("author", userId);
+
+  if (error) {
+    throw new Error(error?.message || "Failed to create companion permissions");
+  }
+
+  const count = data.length;
+
+  if (count >= limit) return false;
+
+  return true;
 };
