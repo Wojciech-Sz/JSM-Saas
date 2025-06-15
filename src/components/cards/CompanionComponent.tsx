@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { Mic, MicOff } from "lucide-react";
+import { addToSessionHistory } from "@/lib/actions/companion.action";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -20,6 +21,7 @@ const CompanionComponent = ({
   name,
   topic,
   voice,
+  companionId,
   style,
   userName,
   userImage,
@@ -67,7 +69,10 @@ const CompanionComponent = ({
 
   useEffect(() => {
     const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
-    const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+    const onCallEnd = async () => {
+      setCallStatus(CallStatus.FINISHED);
+      await addToSessionHistory(companionId);
+    };
     const onMessage = (message: Message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
         const newMessage = { role: message.role, content: message.transcript };
