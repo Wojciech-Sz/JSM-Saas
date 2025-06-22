@@ -23,6 +23,7 @@ const CompanionsList = ({
   companions,
   className,
 }: CompanionsListProps) => {
+  console.log(companions);
   return (
     <article className={cn("companion-list", className)}>
       <h2 className="text-3xl font-bold">{title}</h2>
@@ -35,10 +36,10 @@ const CompanionsList = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {companions?.map(({ $id, subject, duration, name, topic }) => (
-            <TableRow key={$id}>
+          {companions?.map(({ id, subject, duration, name, topic }) => (
+            <TableRow key={id}>
               <TableCell>
-                <Link href={ROUTES.COMPANION_SESSION($id)}>
+                <Link href={ROUTES.COMPANION_SESSION(id)}>
                   <div className="flex items-center gap-2">
                     <div
                       className="flex size-[72px] items-center justify-center rounded-lg max-md:hidden"
